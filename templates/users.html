@@ -29,7 +29,8 @@
                     <tr>
                         <td>{{this_user['first_name']}} {{this_user['last_name']}}</td>
                         <td>{{this_user['email']}}</td>
-                        {% if this_user['already_followed'] %}
+                        
+                        {% if this_user.id in already_followed %}
                         <td><p><a href="/unfollow/{{this_user['id']}}">Unfollow</a></p></td>
                         {% else %}
                         <td><p><a href="/follow/{{this_user['id']}}">Follow</a></p></td>

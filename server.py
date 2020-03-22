@@ -301,7 +301,15 @@ def show_users():
     this_user = mysql.query_db(query,data)
     print (this_user)
 
-    return render_template('users.html', users = all_users, user = this_user)
+    mysql = connectToMySQL('dojo_tweets_db')
+    query = "SELECT * FROM follows WHERE user_following = %(id)s;"
+    data = {'id': session['user_id']}
+    already_followed = [follow_obj['user_followed'] for follow_obj in mysql.query_db(query,data)]
+    print(f"follows is:{already_followed}")
+    print('-------------------------------------------')
+    
+    
+    return render_template('users.html', users = all_users, user = this_user, already_followed=already_followed)
 
 @app.route('/follow/<this_user>')
 def follow_user(this_user):
