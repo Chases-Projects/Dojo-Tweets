@@ -211,7 +211,7 @@ def unlike_tweet(tweet_id):
         return redirect('/')
     print(tweet_id)
     mysql = connectToMySQL('dojo_tweets_db')
-    query = "DELETE FROM likes WHERE id = %(tid)s);"
+    query = "DELETE FROM likes WHERE id = %(tid)s;"
     data = {
         'tid': tweet_id
     }
