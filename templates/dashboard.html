@@ -56,13 +56,12 @@
 
                 <br>
                 
-                {% for tweet_2 in likes %}
-                    {%if tweet_2.id == tweet.id%}
+                {%if tweet.id in liked_tweet_ids%}
                     <a href='/tweets/{{tweet.id}}/unlike'><button class="tw_button">Unlike Tweet</button></a>
-                    {% else %}
+                {% else %}
                     <a href='/tweets/{{tweet.id}}/add_like'><button class="tw_button">Like Tweet</button></a>
-                    {% endif %}
-                {%endfor%}
+                {% endif %}
+                
                 {% if session['user_id'] == tweet.user_id %}
                 <form action="/tweets/{{tweet.id}}/edit" class="tw_button">
                     <input type="submit" value="Edit">

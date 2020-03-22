@@ -152,11 +152,12 @@ def dashboard():
         mysql = connectToMySQL('dojo_tweets_db')
         query = "SELECT * FROM likes WHERE user_id = %(id)s;"
         data = {'id': session['user_id']}
-        likes = mysql.query_db(query, data)
-        print(f"likes is:{likes}")
+        # likes = mysql.query_db(query, data)
+        liked_tweet_ids = [like_obj['tweet_id'] for like_obj in mysql.query_db(query,data)]
+        print(f"likes is:{liked_tweet_ids}")
         print('-------------------------------------------')
     
-        return render_template("dashboard.html", user = logged_user, tweets = tweets, likes=likes)
+        return render_template("dashboard.html", user = logged_user, tweets = tweets, liked_tweet_ids=liked_tweet_ids)
 
     return render_template("dashboard.html", user = logged_user, tweets = [])
     
