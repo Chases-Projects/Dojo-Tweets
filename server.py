@@ -139,11 +139,11 @@ def dashboard():
         data = {'id': session['user_id']}
         tweets = mysql.query_db(query, data)
         
-        # mysql = connectToMySQL('dojo_tweets_db')
-        # query = "SELECT * FROM likes WHERE user_id = %(id)s;"
-        # data = {'id': session['user_id']}
-        # likes = mysql.query_db(query, data)
-        # print('-------------------------------------------')
+        mysql = connectToMySQL('dojo_tweets_db')
+        query = "SELECT * FROM likes WHERE user_id = %(id)s;"
+        data = {'id': session['user_id']}
+        likes = mysql.query_db(query, data)
+        print('-------------------------------------------')
 
         for tweet in tweets:
             time_since_posted = datetime.now() - tweet['created_at']
@@ -152,24 +152,8 @@ def dashboard():
             minutes = (time_since_posted.seconds//60)%60
             
             tweet['time_since_posted'] = (days, hours, minutes)
-
-            print('-------------------------------------------')
             
-            
-            # for like in likes:
-            # print (f"tweet id is {tweet['id']}")
-            # print (f"liked tweet id is {like['tweet_id']}")
-
-            # if tweet['id'] == like['tweet_id']:
-            # #     tweet['already_liked'] = True
-
-            # if tweet['id'] in likes:
-            #     tweet['already_liked'] = True
-            # else:
-            #     tweet['already_liked'] = False
-            
-            # print(tweet['already_liked'])
-        return render_template("dashboard.html", user = logged_user, tweets = tweets)
+        return render_template("dashboard.html", user = logged_user, tweets = tweets, likes=likes)
 
     return render_template("dashboard.html", user = logged_user, tweets = [])
     

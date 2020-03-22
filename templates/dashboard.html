@@ -56,12 +56,13 @@
 
                 <br>
                 
-                {% if tweet['already_liked'] %}
+                {% for tweet_2 in likes %}
+                {%if tweet_2 == tweet%}
                 <a href='/tweets/{{tweet.id}}/unlike'><button class="tw_button">Unlike Tweet</button></a>
                 {% else %}
                 <a href='/tweets/{{tweet.id}}/add_like'><button class="tw_button">Like Tweet</button></a>
                 {% endif %}
-
+                {%endfor%}
                 {% if session['user_id'] == tweet.user_id %}
                 <form action="/tweets/{{tweet.id}}/edit" class="tw_button">
                     <input type="submit" value="Edit">
