@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>User Info</title>
+    </head>
+    <body>
+        <div id="container">
+            <div class="header">
+                <h3 class="app_title">Dojo Tweets</h3>
+                <a href="/dashboard" class="header_link">Dashboard</a>
+                {% for user_info in user %}
+                <h3 class="welc_user">Welcome, {{user_info['first_name']}}</h3>
+                {% endfor %}
+                <a href="/logout" class="header_link">Logout</a>
+            </div>
+            <table>
+                <thead class="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for this_user in users%}
+                    <tr>
+                        <td>{{this_user['first_name']}} {{this_user['last_name']}}</td>
+                        <td>{{this_user['email']}}</td>
+                        {% if this_user['already_liked'] %}
+                        <td><p><a href="/unfollow/{{this_user['id']}}">Unfollow</a></p></td>
+                        {% else %}
+                        <td><p><a href="/follow/{{this_user['id']}}">Follow</a></p></td>
+                        {% endif %}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

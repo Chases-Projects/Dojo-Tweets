@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <div id="container">
+            <div class="header">
+                <h3 class="app_title">Dojo Tweets</h3>
+                <a href="/users" class="header_link">Users</a>
+                {%for user_info in user%}
+                <h3 class="welc_user">Welcome, {{user_info['first_name']}}</h3>
+                {%endfor%}
+                <a href="/logout" class="header_link">Logout</a>
+            </div>
+            <div class="tweet">
+                <h1>Write a Tweet! </h1>
+                <form action="/tweets/create" method="POST">
+                    <input type="text" id="post_tx" name="tweet">
+                    <input type="submit" value="Submit">
+                </form>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <hr>
+
+            <h1>Your Feed:</h1>
+            {% if tweets %}
+
+            {% for tweet in tweets %}
+            <div class="viewTweet">
+                <h2>{{tweet['first_name']}} {{tweet['last_name']}} posted:</h1>
+                <p class="viewText">{{tweet['content']}}</p>
+                <hr>
+                posted
+                {% if tweet.time_since_posted[0] %}
+                    {{tweet.time_since_posted[0]}} days
+                {% elif tweet.time_since_posted[1] %}
+                    {{tweet.time_since_posted[1]}} hours
+                {% elif tweet.time_since_posted[2] %}
+                    {{tweet.time_since_posted[2]}} minutes
+                {% else %}
+                    less than a minute
+                {% endif%}
+                ago
+
+                <br>
+                
+                {% if tweet['already_liked'] %}
+                <a href='/tweets/{{tweet.id}}/unlike'><button class="tw_button">Unlike Tweet</button></a>
+                {% else %}
+                <a href='/tweets/{{tweet.id}}/add_like'><button class="tw_button">Like Tweet</button></a>
+                {% endif %}
+
+                {% if session['user_id'] == tweet.user_id %}
+                <form action="/tweets/{{tweet.id}}/edit" class="tw_button">
+                    <input type="submit" value="Edit">
+                </form>
+                    
+                <form action="/tweets/{{tweet.id}}/delete" method="POST" class="tw_button">
+                    <input type="submit" value="Delete" >
+                </form>
+                {% endif %}
+                <p>This tweet has been liked {{tweet.times_liked}} times.</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            No tweets to show, <a href='/users'>follow some users to get started</a>
+            {% endif %}
+        </div>
+    </body>
+</html>

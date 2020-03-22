@@ -1,0 +1,74 @@
+body{
+    background-color: black;
+}
+
+#container{
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: silver;
+}
+.header{
+    background-color: teal;
+    border-bottom: black 3px solid;
+}
+.app_title{
+    width: 400px;
+    margin: 20px;
+
+}
+.welc_user{
+    width: 200px;
+    margin: 20px;
+}
+.header_link{
+    width: 100px;
+    margin: 25px;
+    display: inline-block;
+}
+.post_tx{
+    width: 300px;
+    min-height: 200px;
+    vertical-align: bottom;
+}
+.viewTweet{
+    width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    align-content: center;
+    background-color: white;
+    border: black 2px solid;
+}
+.tw_button{
+    margin: 25px;
+    display: inline-block;
+}
+p.viewText{
+    min-height: 100px;
+    margin: 10px;
+}
+h2{
+    margin: 0;
+    padding: 5px;
+    background-color: teal;
+}
+h3{
+    display: inline-block;
+    
+}
+table{
+    width: 600px;
+    margin: 20px auto;
+    border: black 2px solid;
+}
+th{
+    padding: 10px;
+    border: black 1px solid;
+}
+td{
+    padding: 10px;
+    border: black 1px solid;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

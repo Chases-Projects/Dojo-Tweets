@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Edit Tweet</title>
+</head>
+<body>
+    <div id="container">
+        <div class="header">
+            <h3 class="app_title">Dojo Tweets</h3>
+            {% for user_info in users %}
+            <h3 class="welc_user">Welcome, {{user_info['first_name']}}</h3>
+            <a href="/logout">Logout</a>
+            {% endfor %}
+        </div>
+        <div class="tweet">
+            <h1>Edit your Tweet:</h1>
+            {%for tweet in tweets%}
+            <form action="/tweets/{{tweet['id']}}/update_tweet" method="POST">
+                <input type="text" id="post_tx" name="tweet" value="{{tweet['content']}}">
+                <input type="submit" value="Update">
+            </form>
+            {%endfor%}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/dashboard">
+                <input type="submit" value="Cancel">
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>
