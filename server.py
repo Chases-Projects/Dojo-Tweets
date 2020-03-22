@@ -152,7 +152,6 @@ def dashboard():
         mysql = connectToMySQL('dojo_tweets_db')
         query = "SELECT * FROM likes WHERE user_id = %(id)s;"
         data = {'id': session['user_id']}
-        # likes = mysql.query_db(query, data)
         liked_tweet_ids = [like_obj['tweet_id'] for like_obj in mysql.query_db(query,data)]
         print(f"likes is:{liked_tweet_ids}")
         print('-------------------------------------------')
@@ -211,7 +210,7 @@ def unlike_tweet(tweet_id):
         return redirect('/')
     print(tweet_id)
     mysql = connectToMySQL('dojo_tweets_db')
-    query = "DELETE FROM likes WHERE id = %(tid)s;"
+    query = "DELETE FROM likes WHERE tweet_id = %(tid)s;"
     data = {
         'tid': tweet_id
     }
@@ -302,12 +301,6 @@ def show_users():
     this_user = mysql.query_db(query,data)
     print (this_user)
 
-
-    # if this_user['id'] in all_users:
-    #     all_users['already_liked'] = True
-    # else:
-    #     all_users['already_liked'] = False
-    
     return render_template('users.html', users = all_users, user = this_user)
 
 @app.route('/follow/<this_user>')
